@@ -74,7 +74,7 @@ def GetMeTime(intent, session):
     city = intent['slots']['city']['value']
     
     maps_url = "https://maps.googleapis.com/maps/api/geocode/json?"
-    maps_key = "AIzaSyBN0ROyKsL52eZ-ovuLbvOXOu1BRgZxkGQ"
+    maps_key = ""
     maps_req = maps_url + "address=" + city + "&key=" + maps_key
     
     resp = urllib.urlopen(maps_req)
@@ -86,7 +86,7 @@ def GetMeTime(intent, session):
 
     api_url = "https://maps.googleapis.com/maps/api/timezone/json?"
     loc = str(latitude) + "," + str(longitude)
-    key = "AIzaSyAdZwaiDOn0MPdAcgIsnYKH2wfreHp8REI"
+    key = ""
 
     api_call = api_url + "location=" + str(loc) + "&timestamp=" + str(timestamp) + "&key=" + key
     resp = urllib.urlopen(api_call)
