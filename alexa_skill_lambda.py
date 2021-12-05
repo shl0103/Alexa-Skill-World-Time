@@ -14,7 +14,6 @@ import json
 import datetime
 from time import mktime
 
-
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, should_end_session):
@@ -38,7 +37,6 @@ def build_response(session_attributes, speechlet_response):
         'sessionAttributes': session_attributes,
         'response': speechlet_response
     }
-
 
 # --------------- Functions that control the skill's behavior ------------------
 
@@ -86,17 +84,12 @@ def GetMeTime(intent, session):
     resp = urllib.urlopen(maps_req)
     r = json.load(resp)
     location = r['results'][0]['geometry']['location']
-
-    
     latitude = location['lat']
     longitude = location['lng']
-
     timestamp = int(time.time())
 
     api_url = "https://maps.googleapis.com/maps/api/timezone/json?"
-
     loc = str(latitude) + "," + str(longitude)
-
     key = "AIzaSyAdZwaiDOn0MPdAcgIsnYKH2wfreHp8REI"
 
     api_call = api_url + "location=" + str(loc) + "&timestamp=" + str(timestamp) + "&key=" + key
@@ -116,16 +109,10 @@ def GetMeTime(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, should_end_session))
 
-
-
-
-
-
 def set_color_in_session(intent, session):
     """ Sets the color in the session and prepares the speech to reply to the
     user.
     """
-
     card_title = intent['name']
     session_attributes = {}
     should_end_session = False
@@ -147,7 +134,6 @@ def set_color_in_session(intent, session):
                         "my favorite color is red."
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-
 
 def get_color_from_session(intent, session):
     session_attributes = {}
@@ -178,7 +164,6 @@ def on_session_started(session_started_request, session):
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
 
-
 def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
     want
@@ -188,10 +173,6 @@ def on_launch(launch_request, session):
           ", sessionId=" + session['sessionId'])
     # Dispatch to your skill's launch
     return get_welcome_response()
-
-
-    
-
 
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
@@ -203,7 +184,6 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    
     if intent_name == "GetMeTime":
         return GetMeTime(intent, session)
     elif intent_name == "WhatsMyColorIntent":
@@ -216,7 +196,6 @@ def on_intent(intent_request, session):
     else:
         raise ValueError("Invalid intent")
 
-
 def on_session_ended(session_ended_request, session):
     """ Called when the user ends the session.
 
@@ -225,7 +204,6 @@ def on_session_ended(session_ended_request, session):
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
-
 
 # --------------- Main handler ------------------
 
